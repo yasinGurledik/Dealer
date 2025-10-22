@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Dealer.API.Extensions
+namespace Dealer.Infrastructure.Extensions
 {
 	public static class ServiceCollectionExtensions
 	{
@@ -34,5 +34,6 @@ namespace Dealer.API.Extensions
 
 			return services;
 		}
+
 	}
 }

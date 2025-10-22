@@ -1,6 +1,5 @@
 
 using AutoMapper;
-using Dealer.API.Extensions;
 using Dealer.Application.Interfaces;
 using Dealer.Application.Mapping;
 using Dealer.Application.Services;
