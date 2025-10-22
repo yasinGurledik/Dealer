@@ -3,9 +3,11 @@ using AutoMapper;
 using Dealer.Application.Interfaces;
 using Dealer.Application.Mapping;
 using Dealer.Application.Services;
+using Dealer.Infrastructure.Data;
 using Dealer.Infrastructure.Extensions;
 using Dealer.Infrastructure.Services ;
 using LoofNex.API.Middleware;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,5 +61,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Seed data  eklenebilir
+await app.Services.SeedDataAsync();
 
 app.Run();
