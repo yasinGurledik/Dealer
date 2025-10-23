@@ -27,7 +27,9 @@ namespace Dealer.Infrastructure.Services
 				Subject = new ClaimsIdentity(new[]
 				{
 					new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-					new Claim(ClaimTypes.Name, userName)
+					new Claim(ClaimTypes.Name, userName),
+					new Claim("CompanyId", "58"),
+					new Claim("UserId", userId.ToString()),
 				}),
 				Expires = DateTime.UtcNow.AddHours(2),
 				SigningCredentials = new SigningCredentials(

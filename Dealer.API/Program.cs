@@ -1,5 +1,7 @@
 
 using AutoMapper;
+using Dealer.API.Middleware;
+using Dealer.API.Swagger.Filters;
 using Dealer.Application.Interfaces;
 using Dealer.Application.Mapping;
 using Dealer.Application.Services;
@@ -8,6 +10,7 @@ using Dealer.Infrastructure.Extensions;
 using Dealer.Infrastructure.Services ;
 using LoofNex.API.Middleware;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +26,11 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+	c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dealer API", Version = "v1" });
+	c.OperationFilter<AuthorizeCheckOperationFilter>();
+});
 
 // Infrastructure DI (db, repos)
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -57,6 +64,7 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
+app.UseMiddleware<JwtValidationMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 

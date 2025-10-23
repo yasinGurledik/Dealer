@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dealer.API.Controllers
 {
-	[Route("api/[controller]/action")]
+	[Route("api/[controller]")]
 	[ApiController]
 	[Authorize]
 	public class ProductController : ControllerBase
@@ -17,14 +17,14 @@ namespace Dealer.API.Controllers
 			_service = service;
 		}
 
-		[HttpGet]
+		[HttpGet("GetAll")]
 		public async Task<IActionResult> GetAll()
 		{
 			var products = await _service.GetAllAsync();
 			return Ok(products);
 		}
 
-		[HttpGet]
+		[HttpGet("GetAllProductWithCategory")]
 		public async Task<IActionResult> GetAllProductWithCategory()
 		{
 			var products = await _service.GetFilterAndIncludeAsync(null, p => p.Category);

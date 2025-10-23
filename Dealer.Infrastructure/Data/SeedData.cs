@@ -1,10 +1,5 @@
 ﻿using Dealer.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dealer.Infrastructure.Data;
 public class SeedData
@@ -18,8 +13,8 @@ public class SeedData
 		if (!context.Users.Any())
 		{
 			context.Users.AddRange(
-				new User { UserName = "admin", PasswordHash = "12345", Email = "admin@dealer.com" },
-				new User { UserName = "demo", PasswordHash = "demo123", Email = "demo@dealer.com" }
+				new User { UserName = "admin", PasswordHash = BCrypt.Net.BCrypt.HashPassword("12345"), Email = "admin@dealer.com" },
+				new User { UserName = "demo", PasswordHash = BCrypt.Net.BCrypt.HashPassword("123456"), Email = "demo@dealer.com" }
 				);
 		}
 
@@ -43,7 +38,16 @@ public class SeedData
 			);
 		}
 
-		await context.SaveChangesAsync();
+		try
+		{
+			await context.SaveChangesAsync();
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+			throw;
+		}
+
 	}
 }
 

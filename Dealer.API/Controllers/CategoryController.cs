@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dealer.API.Controllers
 {
-	[Route("api/[controller]/action")]
+	[Route("api/[controller]")]
 	[ApiController]
 	[Authorize]
 	public class CategoryController : ControllerBase
@@ -17,7 +17,7 @@ namespace Dealer.API.Controllers
 			_service = service;
 		}
 
-		[HttpGet]
+		[HttpGet("GetAll")]
 		public async Task<IActionResult> GetAll()
 		{
 			var categories = await _service.GetAllAsync();
